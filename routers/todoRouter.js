@@ -1,5 +1,5 @@
 const express = require('express');
-const { createContent, getOneContent, getAllContent, updateContent, deleteContent, getAllContentInTrash, moveToTrash } = require('../controllers/todoController');
+const { createContent, getOneContent, getAllContent, updateContent, deleteContent, getAllContentInTrash, moveToTrash, restoreDeleted } = require('../controllers/todoController');
 const { authenticate } = require('../middleware/authorization');
 const router = express.Router();
 
@@ -14,6 +14,8 @@ router.get('/all-trash-content/', authenticate, getAllContentInTrash);
 router.patch('/trash-content/:todoId', authenticate, moveToTrash);
 
 router.patch('/update-content/:todoId', authenticate, updateContent);
+
+router.patch('/restore-content/:todoId', authenticate, restoreDeleted);
 
 router.delete('/delete-content/:todoId', authenticate, deleteContent);
 
