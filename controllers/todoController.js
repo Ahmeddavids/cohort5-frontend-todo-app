@@ -169,3 +169,25 @@ exports.getAllContentInTrash = async (req, res) => {
         })
     }
 }
+
+exports.restoreDeleted = async (req, res) => {
+    try {
+        const { todoId } = req.params;
+        const todo = await TodoModel.findById(todoId);
+        if (!todo) {
+            return res.status(404).json({
+                message: 'Todo Content Not Found'
+            })
+        }
+        todo.isDeleted = false;
+        await todo.save();
+
+        res.status(200).json({
+            message: 'Content restored'
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
