@@ -246,12 +246,12 @@ exports.resetPassword = async (req, res) => {
             message: "Password reset successful"
         });
     } catch (error) {
+        console.error("Something went wrong", error.message);
         if (error instanceof jwt.JsonWebTokenError) {
             return res.status(404).json({
                 message: "Link expired: Please request for a new link"
             });
         }
-        console.error("Something went wrong", error.message);
         res.status(500).json({
             message: error.message
         });
