@@ -248,7 +248,7 @@ exports.resetPassword = async (req, res) => {
     } catch (error) {
         if (error instanceof jwt.JsonWebTokenError) {
             return res.status(404).json({
-                message: "Session timed-out."
+                message: "Link expired: Please request for a new link"
             });
         }
         console.error("Something went wrong", error.message);
