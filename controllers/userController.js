@@ -219,6 +219,11 @@ exports.resetPassword = async (req, res) => {
     try {
         const { token } = req.params;
         const { password } = req.body;
+        if (!password){
+            return res.status(400).json({
+                message:  'Please enter password'
+            })
+        }
 
         // Verify the user's token
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
